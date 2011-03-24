@@ -35,7 +35,9 @@ int do_comm_size(const std::vector<char *> &arg)
         IceTContext context = icetCreateContext(comm);
         icetDestroyMPICommunicator(comm);
 
-        result += SimpleTiming(arg.size(), &arg.at(0));
+        if (in_sub_group) {
+            result += SimpleTiming(arg.size(), &arg.at(0));
+        }
 
         icetDestroyContext(context);
 
