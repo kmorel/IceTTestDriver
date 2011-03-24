@@ -35,8 +35,8 @@ set(SRC
 add_executable(IceTTestDriver ${SRC})
 
 target_link_libraries(IceTTestDriver
-  ${MPI_LIBRARY}
-  ${MPI_EXTRA_LIBRARY}
   ${ICET_CORE_LIBS}
   ${ICET_MPI_LIBS}
+  ${MPI_LIBRARY}
+  ${MPI_EXTRA_LIBRARY}
   )
