@@ -84,7 +84,7 @@ int main(int argc, char **argv)
     arg.push_back("123");
     arg.push_back("-sync-render");
     arg.push_back("-frames");
-    arg.push_back("101");
+    arg.push_back("11");
     arg.push_back("-no-collect");
     arg.push_back("-transparent");
     arg.push_back("-sequential");
