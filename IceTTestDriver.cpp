@@ -49,6 +49,8 @@ int do_comm_size(const std::vector<char *> &arg)
 
 int do_strategy(const std::vector<char *> &arg)
 {
+    int result = 0;
+
     std::vector<char *> strategies_to_try;
     strategies_to_try.push_back("-bswap");
     strategies_to_try.push_back("-fold-bswap");
@@ -59,19 +61,24 @@ int do_strategy(const std::vector<char *> &arg)
          strategy++) {
         std::vector<char *>new_arg = arg;
         new_arg.push_back(*strategy);
-        do_comm_size(new_arg);
+        result += do_comm_size(new_arg);
     }
+
+    return result;
 }
 
 int do_image_size(const std::vector<char *> &arg)
 {
     const IceTSizeType begin_size = 2048;
     const IceTSizeType end_size = 8192;
+    int result = 0;
 
     for (IceTSizeType dim = begin_size; dim <= end_size; dim *= 2) {
         SCREEN_WIDTH = SCREEN_HEIGHT = dim;
-        do_strategy(arg);
+        result += do_strategy(arg);
     }
+
+    return result;
 }
 
 int main(int argc, char **argv)
