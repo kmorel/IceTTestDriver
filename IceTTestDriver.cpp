@@ -42,7 +42,7 @@ int do_comm_size(const std::vector<char *> &arg)
     int my_size = 0;
     int current_size = world_comm_size;
     int top_group_rank = 0;
-    const int MIN_GROUP_SIZE = 256;
+    const int MIN_GROUP_SIZE = 512;
 
     while (ICET_TRUE) {
         current_size /= 2;
@@ -67,12 +67,12 @@ int do_comm_size(const std::vector<char *> &arg)
 
 int do_strategy(const std::vector<char *> &arg)
 {
-#if 0
+#if 1
     int result = 0;
 
     std::vector<char *> strategies_to_try;
-    strategies_to_try.push_back("-bswap");
-    strategies_to_try.push_back("-fold-bswap");
+    // strategies_to_try.push_back("-bswap");
+    // strategies_to_try.push_back("-fold-bswap");
     strategies_to_try.push_back("-radixk");
 
     for (std::vector<char *>::iterator strategy = strategies_to_try.begin();
@@ -100,7 +100,7 @@ int do_transparent(const std::vector<char *> &arg)
 
     int result = 0;
     result += do_strategy(transparent_arg);
-    result += do_strategy(arg);
+    // result += do_strategy(arg);
 
     return result;
 }
@@ -111,7 +111,7 @@ int do_collect(const std::vector<char *> &arg)
     no_collect_arg.push_back("-no-collect");
 
     int result = 0;
-    result += do_transparent(no_collect_arg);
+    // result += do_transparent(no_collect_arg);
     result += do_transparent(arg);
 
     return result;
@@ -119,7 +119,7 @@ int do_collect(const std::vector<char *> &arg)
 
 int do_image_size(const std::vector<char *> &arg)
 {
-    const IceTSizeType begin_size = 2048;
+    const IceTSizeType begin_size = 1024;
     const IceTSizeType end_size = 2048;
     int result = 0;
 
@@ -143,6 +143,8 @@ int main(int argc, char **argv)
     arg.push_back("-frames");
     arg.push_back("101");
     arg.push_back("-sequential");
+    arg.push_back("-max-image-split-study");
+    arg.push_back("256");
 
     int result = do_image_size(arg);
 
