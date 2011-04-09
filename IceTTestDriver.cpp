@@ -67,12 +67,12 @@ int do_comm_size(const std::vector<char *> &arg)
 
 int do_strategy(const std::vector<char *> &arg)
 {
-#if 1
+#if 0
     int result = 0;
 
     std::vector<char *> strategies_to_try;
-    // strategies_to_try.push_back("-bswap");
-    // strategies_to_try.push_back("-fold-bswap");
+    strategies_to_try.push_back("-bswap");
+    strategies_to_try.push_back("-fold-bswap");
     strategies_to_try.push_back("-radixk");
 
     for (std::vector<char *>::iterator strategy = strategies_to_try.begin();
@@ -87,7 +87,7 @@ int do_strategy(const std::vector<char *> &arg)
 #else
     std::vector<char *>new_arg = arg;
     new_arg.push_back("-magic-k-study");
-    new_arg.push_back("128");
+    new_arg.push_back("64");
 
     return do_comm_size(new_arg);
 #endif
@@ -100,7 +100,7 @@ int do_transparent(const std::vector<char *> &arg)
 
     int result = 0;
     result += do_strategy(transparent_arg);
-    // result += do_strategy(arg);
+    result += do_strategy(arg);
 
     return result;
 }
@@ -119,7 +119,7 @@ int do_collect(const std::vector<char *> &arg)
 
 int do_image_size(const std::vector<char *> &arg)
 {
-    const IceTSizeType begin_size = 1024;
+    const IceTSizeType begin_size = 2048;
     const IceTSizeType end_size = 2048;
     int result = 0;
 
@@ -143,8 +143,8 @@ int main(int argc, char **argv)
     arg.push_back("-frames");
     arg.push_back("101");
     arg.push_back("-sequential");
-    arg.push_back("-max-image-split-study");
-    arg.push_back("256");
+    // arg.push_back("-max-image-split-study");
+    // arg.push_back("256");
 
     int result = do_image_size(arg);
 
